@@ -7,7 +7,7 @@ type RoutePayload = {
 type PurchasePayload = {
     orderId: number | string,
     totalPrice: number,
-    productsIds: Array<number>
+    productIds: Array<number>
 }
 
 type ViewPayload = ProductData & {
@@ -28,19 +28,19 @@ class EventService {
 
     }
 
-    async sendEvent(data: EventRequestData) {
+    public async sendEvent(data: EventData) {
+        const currentDate = Date.now();
+        const requestData: EventRequestData = {
+            ...data,
+            timestamp: currentDate
+        }
         fetch('./api/sendEvent', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(requestData),
         })
-    }
-
-    public async addToCardEvent(data: EventData) {
-        const currentDate = Date.now();
-        this.sendEvent({ ...data, timestamp: currentDate });
     }
 }
 

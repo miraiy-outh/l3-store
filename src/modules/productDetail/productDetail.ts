@@ -1,6 +1,6 @@
 import { Component } from '../component';
 import { ProductList } from '../productList/productList';
-import { formatPrice } from '../../utils/helpers';
+import { formatPrice, isEmptyObject } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
@@ -44,8 +44,18 @@ class ProductDetail extends Component {
 
     fetch(`/api/getProductSecretKey?id=${id}`)
       .then((res) => res.json())
-      .then((secretKey) => {
+      .then((secretKey: string) => {
         this.view.secretKey.setAttribute('content', secretKey);
+        if (!this.product) return;
+
+        const isEmptyLog = isEmptyObject(this.product.log);
+        eventService.sendEvent({
+          type: isEmptyLog ? 'viewCard' : 'viewCardPromo',
+          payload: {
+            ...this.product,
+            secretKey
+          }
+        });
       });
 
     fetch('/api/getPopularProducts')
@@ -57,9 +67,9 @@ class ProductDetail extends Component {
 
   private _addToCart() {
     if (!this.product) return;
-    console.log(this.product);
+
     cartService.addProduct(this.product);
-    eventService.addToCardEvent({
+    eventService.sendEvent({
       type: 'addToCard',
       payload: this.product
     });
