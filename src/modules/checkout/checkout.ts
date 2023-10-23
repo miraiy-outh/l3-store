@@ -5,6 +5,7 @@ import { formatPrice } from '../../utils/helpers';
 import { cartService } from '../../services/cart.service';
 import { ProductData } from 'types';
 import { eventService } from '../../services/event.service';
+import { genUUID } from '../../utils/helpers';
 
 class Checkout extends Component {
   products!: ProductData[];
@@ -40,7 +41,7 @@ class Checkout extends Component {
     eventService.sendEvent({
       type: 'purchase',
       payload: {
-        orderId: 1, // потом поменять
+        orderId: genUUID(),
         totalPrice,
         productIds
       }
