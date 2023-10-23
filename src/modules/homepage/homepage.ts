@@ -15,7 +15,12 @@ class Homepage extends Component {
   }
 
   render() {
-    fetch('/api/getPopularProducts')
+    const userId = sessionStorage.getItem("userId");
+    fetch('/api/getPopularProducts', {
+      headers: {
+        'x-userid': userId ?? ''
+      }
+    })
       .then((res) => res.json())
       .then((products) => {
         this.popularProducts.update(products);

@@ -21,8 +21,13 @@ class ProductDetail extends Component {
   async render() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = Number(urlParams.get('id'));
+    const userId = sessionStorage.getItem("userId");
 
-    const productResp = await fetch(`/api/getProduct?id=${productId}`);
+    const productResp = await fetch(`/api/getProduct?id=${productId}`, {
+      headers: {
+        'x-userid': userId ?? ''
+      }
+    });
     this.product = await productResp.json();
 
     if (!this.product) return;
@@ -58,7 +63,11 @@ class ProductDetail extends Component {
         });
       });
 
-    fetch('/api/getPopularProducts')
+    fetch('/api/getPopularProducts', {
+      headers: {
+        'x-userid': userId ?? ''
+      }
+    })
       .then((res) => res.json())
       .then((products) => {
         this.more.update(products);
