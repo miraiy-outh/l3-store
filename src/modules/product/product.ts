@@ -28,7 +28,6 @@ export class Product {
     this.view.img.setAttribute('src', src);
     this.view.title.innerText = name;
     this.view.price.innerText = formatPrice(salePriceU);
-
     if (this.params.isHorizontal) this.view.root.classList.add('is__horizontal')
   }
 }

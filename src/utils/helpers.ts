@@ -1,13 +1,13 @@
 export const genUUID = () => {
-    let d = new Date().getTime();
-    if (window.performance && typeof window.performance.now === 'function') {
-        d += performance.now();
-    }
-    return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        const r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
-    });
+  let d = new Date().getTime();
+  if (window.performance && typeof window.performance.now === 'function') {
+    d += performance.now();
+  }
+  return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
 }
 
 export const addElement = (parent: HTMLElement, tag: string, options?: object) => {
@@ -27,3 +27,11 @@ export const formatPrice = (price: number) => {
       .replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
   );
 };
+
+export function isEmptyObject(obj: Record<string, any> | null | undefined): boolean {
+  if (obj === null || obj === undefined) {
+    return true;
+  }
+
+  return Object.keys(obj).length === 0;
+}
