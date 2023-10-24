@@ -1,0 +1,40 @@
+.search-tips {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 550;
+    line-height: 24px;
+
+    &__text {
+        margin: 0 8px;
+    }
+
+    &__comma {
+        margin-left: 0;
+    }
+
+    &__button {
+        display: flex;
+        padding: 4px 6px 8px 6px;
+        align-items: center;
+        gap: 10px;
+        border-radius: 8px;
+        border: none;
+        background: var(--plate-color);
+
+        &__text {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 22px;
+            font-weight: 550;
+            line-height: 24px;
+            background: linear-gradient(93deg, #DA15B8 4.93%, #8D06CC 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
